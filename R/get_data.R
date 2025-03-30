@@ -21,6 +21,14 @@
 #' }
 #' }
 get_data <- function(base_url, offset = 0, limit = 1000) {
+  # Add input validation
+  if (is.null(base_url)) {
+    stop("Error: base_url argument is missing")
+  }
+  if (!is.character(base_url)) {
+    stop("Error: base_url must be a character string")
+  }
+
   url <- paste0(base_url, "?$offset=", offset, "&$limit=", limit)
   response <- httr2::request(url) |>
     httr2::req_perform() |>
